@@ -11,6 +11,7 @@ import Parse
 
 class saveSpeech: UIViewController, UITextFieldDelegate {
 
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     var speech = PFObject(className: "speech")
     @IBOutlet weak var speechName: UITextField!
     
@@ -30,6 +31,9 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
     
     func saveSpeechNow(){
         if speechName.text != "" {
+            activity.isHidden = false
+            activity.startAnimating()
+            view.isUserInteractionEnabled = false
             speech["name"] = speechName.text
             speech["user"] = PFUser.current()
             speech["file"] = PFUser.current()!["currentAudio"]
@@ -38,6 +42,8 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
                 if (success) {
                     // The object has been saved.
                     self.dismiss(animated: true, completion: nil)
+                    self.view.isUserInteractionEnabled = true
+
                     
                 } else {
                     // There was a problem, check error.description
@@ -46,6 +52,8 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
                     
                     errorAlert.addAction(UIAlertAction(title: "tryAgain", style: UIAlertActionStyle.default, handler: nil))
                     self.present(errorAlert, animated: true, completion: nil)
+                    self.view.isUserInteractionEnabled = true
+
                 }
             }
         }

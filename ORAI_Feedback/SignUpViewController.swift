@@ -28,6 +28,7 @@ class SignUpViewController: UIViewController {
 
     @IBAction func signUpAction(_ sender: Any) {
         if username.text != "" && email.text != "" && password.text != ""{
+
             let user = PFUser()
             user.username = username.text
             user.password = password.text

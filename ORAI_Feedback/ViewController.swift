@@ -23,9 +23,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var cameraView: UIView!
     
+    var output = AVCaptureVideoDataOutput()
+
+    
     
     var panGesture       = UIPanGestureRecognizer()
 
+    @IBOutlet weak var counter: UILabel!
+    
+    @IBOutlet weak var counterView: UIView!
     
     let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyLow])
     
@@ -33,12 +39,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     
     var stillOutput = AVCaptureStillImageOutput()
     var smiles = 0
-    
+    let movieOutput = AVCaptureMovieFileOutput()
+    var activeInput: AVCaptureDeviceInput!
+    var outputURL: URL!
     var totalSmiles = [""]
     var totalFaces = [""]
     var captureSession: AVCaptureSession?
     var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    var counter = 0
+    var counterInt = 0
     var timer = Timer()
     var gameScore = PFObject(className:"GameScore")
     var recordingSession: AVAudioSession!
@@ -65,11 +73,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         return documentsDirectory
     }
     
+    func videoQueue() -> DispatchQueue {
+        return DispatchQueue.main
+    }
+    
     func startRecording() {
         
         progress.isHidden = false
         
-        tapOutlet.isHidden = true
         
         let audioSession = AVAudioSession.sharedInstance()
         
@@ -93,13 +104,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         
     }
     
+    func secondsToHoursMinutesSeconds (seconds : Int) -> (Int, Int, Int) {
+        return (seconds / 3600, (seconds % 3600) / 60, (seconds % 3600) % 60)
+    }
+    
     func finishRecording(success: Bool) {
         audioRecorder.stop()
         progress.isHidden = true
         happy.isHidden = true
         nuetral.isHidden = true
         self.faceLabel.isHidden = true
-        tapOutlet.isHidden = false
 
 
         
@@ -114,6 +128,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     }
     
     
+    
+    
     func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
         if !flag {
             finishRecording(success: false)
@@ -121,14 +137,106 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     }
     
     @objc func timerAction() {
-        counter += 1
+        self.cameraView.translatesAutoresizingMaskIntoConstraints = true
+        counterInt += 1
         let x = (Double(self.totalSmiles.count) / Double(self.totalFaces.count as Int)) * 100
+        if counterInt < 10 {
+            let seconds = "0" + String(counterInt + 00)
+            counter.text = String(counterInt/60 + 00) + ":" + seconds
 
+        } else {
+        counter.text = String(counterInt/60 + 00) + ":" + String(counterInt + 00)
+        }
     }
+    
+    func tempURL() -> URL? {
+        let directory = NSTemporaryDirectory() as NSString
+        
+        if directory != "" {
+            let path = directory.appendingPathComponent(NSUUID().uuidString + ".mp4")
+            return URL(fileURLWithPath: path)
+        }
+        
+        return nil
+    }
+    
+    func currentVideoOrientation() -> AVCaptureVideoOrientation {
+        var orientation: AVCaptureVideoOrientation
+        
+        switch UIDevice.current.orientation {
+        case .portrait:
+            orientation = AVCaptureVideoOrientation.portrait
+        case .landscapeRight:
+            orientation = AVCaptureVideoOrientation.landscapeLeft
+        case .portraitUpsideDown:
+            orientation = AVCaptureVideoOrientation.portraitUpsideDown
+        default:
+            orientation = AVCaptureVideoOrientation.landscapeRight
+        }
+        
+        return orientation
+    }
+    
+
+    
+    func recordVideo(){
+        if movieOutput.isRecording == false {
+
+        let connection = movieOutput.connection(with: AVMediaType.video)
+        if (connection?.isVideoOrientationSupported)! {
+            connection?.videoOrientation = currentVideoOrientation()
+        }
+        
+        if (connection?.isVideoStabilizationSupported)! {
+            connection?.preferredVideoStabilizationMode = AVCaptureVideoStabilizationMode.auto
+        }
+        
+        let device = activeInput.device
+        if (device.isSmoothAutoFocusSupported) {
+            do {
+                try device.lockForConfiguration()
+                device.isSmoothAutoFocusEnabled = false
+                device.unlockForConfiguration()
+            } catch {
+                print("Error setting configuration: \(error)")
+            }
+            
+        }
+        outputURL = tempURL()
+            movieOutput.startRecording(to: outputURL, recordingDelegate: self as! AVCaptureFileOutputRecordingDelegate)
+        } else {
+            captureSession?.addOutput(movieOutput)
+            movieOutput.stopRecording()
+            print("finishedRecording")
+
+        }
+    }
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAt fileURL: URL!, fromConnections connections: [Any]!) {
+        
+    }
+    
+    func capture(_ captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAt outputFileURL: URL!, fromConnections connections: [Any]!, error: Error!) {
+        if (error != nil) {
+            print("Error recording movie: \(error!.localizedDescription)")
+        } else {
+            
+            _ = outputURL as URL
+            
+        }
+        outputURL = nil
+    }
+    
+    
+
+
 
     @IBAction func recordAction(_ sender: Any) {
+        
+
         if audioRecorder == nil {
             
+
             let smileAlert = UIAlertController(title: "Smile Detector", message: "Please make sure you are in good lighting and your full face is in the view", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
@@ -143,12 +251,22 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 
                 
                 self.timer.invalidate() // just in case this button is tapped multiple times
-                self.counter = 0
+                self.counterInt = 0
                 // start the timer
                 self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerAction), userInfo: nil, repeats: true)
                 
                 
-                self.captureSession?.startRunning()
+                self.videoQueue().async {
+                    self.captureSession?.startRunning()
+                    UIView.animate(withDuration: 1.5, animations: {
+                        self.cameraView.transform = CGAffineTransform( translationX: 0.0, y: 300.0 )
+                        self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
+                        self.counterView.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
+                        self.tapOutlet.transform = CGAffineTransform( translationX: 400.0, y: 0.0 )
+
+                        self.view.bringSubview(toFront: self.cameraView)
+                    })
+                }
                 self.videoPreviewLayer?.isHidden = false
                 
                 
@@ -162,6 +280,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
                                    options: .allowUserInteraction,
                                    animations: { [weak self] in
                                     self?.recordOutlet.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+
                                     
                         },
                                    completion: nil)
@@ -175,18 +294,31 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 
             
         } else {
-            statsView.isHidden = true
             finishRecording(success: true)
             timer.invalidate()
             activity.isHidden = false
             activity.startAnimating()
+            view.isUserInteractionEnabled = false
+            
+            UIView.animate(withDuration: 1.5, animations: {
+                self.cameraView.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
+                self.view.bringSubview(toFront: self.cameraView)
+                self.counterView.transform = CGAffineTransform( translationX: -500.0, y: 0.0 )
+                self.tapOutlet.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
+
+                
+                self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 800.0 )
+                
+                
+            })
+
             videoPreviewLayer?.isHidden = true
             if let image = UIImage(named: "icons8-microphone-250.png") {
                 self.recordOutlet.setImage(image, for: .normal)
                 do {
                     let audioData = try Data(contentsOf: audioRecorder.url as URL)
+                    let videoData = try Data(contentsOf: audioRecorder.url as URL)
                     let file = PFFile(name:"audio.m4a", data:audioData)
-                    self.view.isUserInteractionEnabled = false
 
                     file?.saveInBackground(block: { (success, error) in
                         if success == true && error == nil{
@@ -282,10 +414,21 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
 
+    func setupCaptureMode(_ mode: Int) {
+        // Video Mode
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 800.0 )
+        
+        self.counterView.transform = CGAffineTransform( translationX: -400.0, y: 0.0 )
+        
+            
         cameraView.layer.borderWidth = 3
         
         progress.transform = progress.transform.scaledBy(x: 1, y: 10)
@@ -305,19 +448,21 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             cameraView.layer.addSublayer(videoPreviewLayer!)
             cameraView.addSubview(recordOutlet)
             
-            let output = AVCaptureVideoDataOutput()
             output.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String : NSNumber(value: kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
             
             output.alwaysDiscardsLateVideoFrames = true
             
             if (captureSession?.canAddOutput(output))! {
                 captureSession?.addOutput(output)
+
             }
             
             captureSession?.commitConfiguration()
             
             let queue = DispatchQueue(label: "output.queue")
             output.setSampleBufferDelegate(self as? AVCaptureVideoDataOutputSampleBufferDelegate, queue: queue)
+            
+
 
             
             
@@ -390,6 +535,9 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
     func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        if (captureSession?.canAddOutput(output))!{
+        captureSession?.addOutput(output)
+        }
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
         let attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate)
         let ciImage = CIImage(cvImageBuffer: pixelBuffer!, options: attachments as! [String : Any]?)
@@ -406,10 +554,13 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
 
                 self.faceLabel.isHidden = false
                 self.nuetral.isHidden = false
-                let x = (Double(self.totalSmiles.count) / Double(self.totalFaces.count as Int))
-
+                let x = (Double(self.totalSmiles.count as Int + 30) / Double(self.totalFaces.count))
+                
                 
                 self.progress.progress = Float(x)
+                if x > 60 {
+                    self.progress.progressTintColor = UIColor.green
+                }
 
                 
 
@@ -450,5 +601,7 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
             
             
         }
+
     }
+
 }
