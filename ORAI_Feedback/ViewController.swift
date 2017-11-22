@@ -156,6 +156,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         } else {
             finishRecording(success: true)
             timer.invalidate()
+            activity.isHidden = false
             activity.startAnimating()
             videoPreviewLayer?.isHidden = true
             if let image = UIImage(named: "icons8-microphone-250.png") {
@@ -173,13 +174,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
                                     self.performSegue(withIdentifier: "nameSong", sender: self)
                                     print(PFUser.current()!["currentAudio"])
                                     self.activity.stopAnimating()
+                                    self.activity.isHidden = true
+
 
                                 } else {
                                     let alert = UIAlertController(title: "Error", message: error as? String, preferredStyle: UIAlertControllerStyle.alert)
                                     alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
                                     self.present(alert, animated: true, completion: nil)
                                     self.activity.stopAnimating()
-
+                                    self.activity.isHidden = true
                                 }
                             })
                             

@@ -311,7 +311,7 @@
                                     <constraint firstItem="KoI-2V-0n3" firstAttribute="centerY" secondItem="Y77-RB-mIb" secondAttribute="centerY" id="xE7-qr-St4"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xAs-aF-qES">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xAs-aF-qES">
                                 <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8AZ-aW-3at"/>
