@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Parse
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,7 +17,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        
+        let parseConfiguration = ParseClientConfiguration(block: { (ParseMutableClientConfiguration) -> Void in
+            ParseMutableClientConfiguration.applicationId = "b2797e26-64de-417f-81a9-f7c30d09fc6b"
+            ParseMutableClientConfiguration.clientKey = "fIfQyWc6NY1aoQJUqgutmwirnYQ7pEqE"
+            ParseMutableClientConfiguration.server = "https://api.parse.buddy.com/parse/"
+        })
+        
+        Parse.initialize(with: parseConfiguration)
         return true
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

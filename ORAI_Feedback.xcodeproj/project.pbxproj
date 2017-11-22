@@ -7,13 +7,24 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		45698FDDC4BBB9652A737598 /* Pods_ORAI_Feedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D263884EF6BF269809468A9C /* Pods_ORAI_Feedback.framework */; };
 		66371A131FC24703009CF4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A121FC24703009CF4B4 /* AppDelegate.swift */; };
 		66371A151FC24703009CF4B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A141FC24703009CF4B4 /* ViewController.swift */; };
-		66371A181FC24703009CF4B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66371A161FC24703009CF4B4 /* Main.storyboard */; };
-		66371A1A1FC24703009CF4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66371A191FC24703009CF4B4 /* Assets.xcassets */; };
 		66371A1D1FC24703009CF4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66371A1B1FC24703009CF4B4 /* LaunchScreen.storyboard */; };
 		66371A281FC24704009CF4B4 /* ORAI_FeedbackTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A271FC24704009CF4B4 /* ORAI_FeedbackTests.swift */; };
 		66371A331FC24704009CF4B4 /* ORAI_FeedbackUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A321FC24704009CF4B4 /* ORAI_FeedbackUITests.swift */; };
+		66371A401FC2492B009CF4B4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66371A411FC2492B009CF4B4 /* Parse.framework */; };
+		66371A421FC24930009CF4B4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 66371A431FC24930009CF4B4 /* Bolts.framework */; };
+		66371A451FC25453009CF4B4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66371A441FC25453009CF4B4 /* Main.storyboard */; };
+		66371A481FC25496009CF4B4 /* icons8-microphone-250.png in Resources */ = {isa = PBXBuildFile; fileRef = 66371A471FC25496009CF4B4 /* icons8-microphone-250.png */; };
+		66371A4A1FC254AA009CF4B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 66371A491FC254AA009CF4B4 /* Assets.xcassets */; };
+		66371A501FC25F85009CF4B4 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A4F1FC25F85009CF4B4 /* SignUpViewController.swift */; };
+		66371A521FC32D0B009CF4B4 /* saveSpeech.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A511FC32D0B009CF4B4 /* saveSpeech.swift */; };
+		664F69571FC402CD00377E0E /* icons8-stop-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F69561FC402CD00377E0E /* icons8-stop-120.png */; };
+		664F69591FC4154600377E0E /* icons8-happy-120.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F69581FC4154600377E0E /* icons8-happy-120.png */; };
+		664F695B1FC4E2D000377E0E /* icons8-neutral-100.png in Resources */ = {isa = PBXBuildFile; fileRef = 664F695A1FC4E2CF00377E0E /* icons8-neutral-100.png */; };
+		74A2818049F9F83D69CEEB92 /* Pods_ORAI_FeedbackTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 674AE5196DF467A589B9C301 /* Pods_ORAI_FeedbackTests.framework */; };
+		A68C062631F65C2A25206B78 /* Pods_ORAI_FeedbackUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2FED4C8DF681C4935E812128 /* Pods_ORAI_FeedbackUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,11 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		20E1F419CE58E759A0BEECC2 /* Pods-ORAI_Feedback.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_Feedback.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback.debug.xcconfig"; sourceTree = "<group>"; };
+		2FED4C8DF681C4935E812128 /* Pods_ORAI_FeedbackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORAI_FeedbackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		615EC28C278877569F2311EE /* Pods-ORAI_FeedbackUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_FeedbackUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_FeedbackUITests/Pods-ORAI_FeedbackUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		66371A0F1FC24703009CF4B4 /* ORAI_Feedback.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ORAI_Feedback.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66371A121FC24703009CF4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66371A141FC24703009CF4B4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		66371A171FC24703009CF4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		66371A191FC24703009CF4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		66371A1C1FC24703009CF4B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		66371A1E1FC24703009CF4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		66371A231FC24704009CF4B4 /* ORAI_FeedbackTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ORAI_FeedbackTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -47,6 +59,22 @@
 		66371A2E1FC24704009CF4B4 /* ORAI_FeedbackUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ORAI_FeedbackUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		66371A321FC24704009CF4B4 /* ORAI_FeedbackUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ORAI_FeedbackUITests.swift; sourceTree = "<group>"; };
 		66371A341FC24704009CF4B4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		66371A411FC2492B009CF4B4 /* Parse.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Parse.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66371A431FC24930009CF4B4 /* Bolts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Bolts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		66371A441FC25453009CF4B4 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		66371A471FC25496009CF4B4 /* icons8-microphone-250.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-microphone-250.png"; sourceTree = "<group>"; };
+		66371A491FC254AA009CF4B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../../Orai/Orai Trial App/Assets.xcassets"; sourceTree = "<group>"; };
+		66371A4F1FC25F85009CF4B4 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		66371A511FC32D0B009CF4B4 /* saveSpeech.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = saveSpeech.swift; sourceTree = "<group>"; };
+		664F69561FC402CD00377E0E /* icons8-stop-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-stop-120.png"; sourceTree = "<group>"; };
+		664F69581FC4154600377E0E /* icons8-happy-120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-happy-120.png"; sourceTree = "<group>"; };
+		664F695A1FC4E2CF00377E0E /* icons8-neutral-100.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icons8-neutral-100.png"; sourceTree = "<group>"; };
+		674AE5196DF467A589B9C301 /* Pods_ORAI_FeedbackTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORAI_FeedbackTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8022D1DC07A7661E6A4324AB /* Pods-ORAI_FeedbackUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_FeedbackUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_FeedbackUITests/Pods-ORAI_FeedbackUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8389DB9E5259EF32851AC238 /* Pods-ORAI_Feedback.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_Feedback.release.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback.release.xcconfig"; sourceTree = "<group>"; };
+		973E6B01F01E6FAE5BBCC830 /* Pods-ORAI_FeedbackTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_FeedbackTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_FeedbackTests/Pods-ORAI_FeedbackTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D263884EF6BF269809468A9C /* Pods_ORAI_Feedback.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORAI_Feedback.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FB269A7927E61D66B632C1EE /* Pods-ORAI_FeedbackTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_FeedbackTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_FeedbackTests/Pods-ORAI_FeedbackTests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +82,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66371A421FC24930009CF4B4 /* Bolts.framework in Frameworks */,
+				66371A401FC2492B009CF4B4 /* Parse.framework in Frameworks */,
+				45698FDDC4BBB9652A737598 /* Pods_ORAI_Feedback.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				74A2818049F9F83D69CEEB92 /* Pods_ORAI_FeedbackTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,19 +100,35 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A68C062631F65C2A25206B78 /* Pods_ORAI_FeedbackUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		637A0272DC904DF32446A44E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				66371A431FC24930009CF4B4 /* Bolts.framework */,
+				66371A411FC2492B009CF4B4 /* Parse.framework */,
+				D263884EF6BF269809468A9C /* Pods_ORAI_Feedback.framework */,
+				674AE5196DF467A589B9C301 /* Pods_ORAI_FeedbackTests.framework */,
+				2FED4C8DF681C4935E812128 /* Pods_ORAI_FeedbackUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		66371A061FC24703009CF4B4 = {
 			isa = PBXGroup;
 			children = (
 				66371A111FC24703009CF4B4 /* ORAI_Feedback */,
+				66371A461FC25496009CF4B4 /* imgs */,
 				66371A261FC24704009CF4B4 /* ORAI_FeedbackTests */,
 				66371A311FC24704009CF4B4 /* ORAI_FeedbackUITests */,
 				66371A101FC24703009CF4B4 /* Products */,
+				A5C370A6969288AA10771C40 /* Pods */,
+				637A0272DC904DF32446A44E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,8 +147,10 @@
 			children = (
 				66371A121FC24703009CF4B4 /* AppDelegate.swift */,
 				66371A141FC24703009CF4B4 /* ViewController.swift */,
-				66371A161FC24703009CF4B4 /* Main.storyboard */,
-				66371A191FC24703009CF4B4 /* Assets.xcassets */,
+				66371A4F1FC25F85009CF4B4 /* SignUpViewController.swift */,
+				66371A511FC32D0B009CF4B4 /* saveSpeech.swift */,
+				66371A441FC25453009CF4B4 /* Main.storyboard */,
+				66371A491FC254AA009CF4B4 /* Assets.xcassets */,
 				66371A1B1FC24703009CF4B4 /* LaunchScreen.storyboard */,
 				66371A1E1FC24703009CF4B4 /* Info.plist */,
 			);
@@ -125,6 +175,30 @@
 			path = ORAI_FeedbackUITests;
 			sourceTree = "<group>";
 		};
+		66371A461FC25496009CF4B4 /* imgs */ = {
+			isa = PBXGroup;
+			children = (
+				66371A471FC25496009CF4B4 /* icons8-microphone-250.png */,
+				664F695A1FC4E2CF00377E0E /* icons8-neutral-100.png */,
+				664F69561FC402CD00377E0E /* icons8-stop-120.png */,
+				664F69581FC4154600377E0E /* icons8-happy-120.png */,
+			);
+			path = imgs;
+			sourceTree = "<group>";
+		};
+		A5C370A6969288AA10771C40 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				20E1F419CE58E759A0BEECC2 /* Pods-ORAI_Feedback.debug.xcconfig */,
+				8389DB9E5259EF32851AC238 /* Pods-ORAI_Feedback.release.xcconfig */,
+				973E6B01F01E6FAE5BBCC830 /* Pods-ORAI_FeedbackTests.debug.xcconfig */,
+				FB269A7927E61D66B632C1EE /* Pods-ORAI_FeedbackTests.release.xcconfig */,
+				615EC28C278877569F2311EE /* Pods-ORAI_FeedbackUITests.debug.xcconfig */,
+				8022D1DC07A7661E6A4324AB /* Pods-ORAI_FeedbackUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -132,9 +206,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66371A371FC24704009CF4B4 /* Build configuration list for PBXNativeTarget "ORAI_Feedback" */;
 			buildPhases = (
+				1A0A8C8D787B86144A5E8425 /* [CP] Check Pods Manifest.lock */,
 				66371A0B1FC24703009CF4B4 /* Sources */,
 				66371A0C1FC24703009CF4B4 /* Frameworks */,
 				66371A0D1FC24703009CF4B4 /* Resources */,
+				BB953354299CE1250A402F1C /* [CP] Embed Pods Frameworks */,
+				51CB1857A6BF0E03227E7209 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,9 +226,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66371A3A1FC24704009CF4B4 /* Build configuration list for PBXNativeTarget "ORAI_FeedbackTests" */;
 			buildPhases = (
+				699F82D8F9249FD8605A3EB9 /* [CP] Check Pods Manifest.lock */,
 				66371A1F1FC24704009CF4B4 /* Sources */,
 				66371A201FC24704009CF4B4 /* Frameworks */,
 				66371A211FC24704009CF4B4 /* Resources */,
+				6B75E1324A9EDF8A1D247329 /* [CP] Embed Pods Frameworks */,
+				6BAC96E3EC8C94A0121F6357 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -167,9 +247,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 66371A3D1FC24704009CF4B4 /* Build configuration list for PBXNativeTarget "ORAI_FeedbackUITests" */;
 			buildPhases = (
+				3706A1E7A59E737CACD2E985 /* [CP] Check Pods Manifest.lock */,
 				66371A2A1FC24704009CF4B4 /* Sources */,
 				66371A2B1FC24704009CF4B4 /* Frameworks */,
 				66371A2C1FC24704009CF4B4 /* Resources */,
+				6E4FD5B72D7E188FAB77580B /* [CP] Embed Pods Frameworks */,
+				D2967409667F32A649FAAE57 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -232,9 +315,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				664F69591FC4154600377E0E /* icons8-happy-120.png in Resources */,
 				66371A1D1FC24703009CF4B4 /* LaunchScreen.storyboard in Resources */,
-				66371A1A1FC24703009CF4B4 /* Assets.xcassets in Resources */,
-				66371A181FC24703009CF4B4 /* Main.storyboard in Resources */,
+				66371A481FC25496009CF4B4 /* icons8-microphone-250.png in Resources */,
+				66371A451FC25453009CF4B4 /* Main.storyboard in Resources */,
+				664F695B1FC4E2D000377E0E /* icons8-neutral-100.png in Resources */,
+				664F69571FC402CD00377E0E /* icons8-stop-120.png in Resources */,
+				66371A4A1FC254AA009CF4B4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,12 +341,166 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A0A8C8D787B86144A5E8425 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ORAI_Feedback-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3706A1E7A59E737CACD2E985 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ORAI_FeedbackUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		51CB1857A6BF0E03227E7209 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		699F82D8F9249FD8605A3EB9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ORAI_FeedbackTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6B75E1324A9EDF8A1D247329 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_FeedbackTests/Pods-ORAI_FeedbackTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6BAC96E3EC8C94A0121F6357 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_FeedbackTests/Pods-ORAI_FeedbackTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6E4FD5B72D7E188FAB77580B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_FeedbackUITests/Pods-ORAI_FeedbackUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BB953354299CE1250A402F1C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D2967409667F32A649FAAE57 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_FeedbackUITests/Pods-ORAI_FeedbackUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		66371A0B1FC24703009CF4B4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				66371A501FC25F85009CF4B4 /* SignUpViewController.swift in Sources */,
 				66371A151FC24703009CF4B4 /* ViewController.swift in Sources */,
+				66371A521FC32D0B009CF4B4 /* saveSpeech.swift in Sources */,
 				66371A131FC24703009CF4B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -296,14 +537,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		66371A161FC24703009CF4B4 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				66371A171FC24703009CF4B4 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		66371A1B1FC24703009CF4B4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -424,11 +657,13 @@
 		};
 		66371A381FC24704009CF4B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 20E1F419CE58E759A0BEECC2 /* Pods-ORAI_Feedback.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A27GAPV3L7;
 				INFOPLIST_FILE = ORAI_Feedback/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "flash.ORAI-Feedback";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -439,11 +674,13 @@
 		};
 		66371A391FC24704009CF4B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8389DB9E5259EF32851AC238 /* Pods-ORAI_Feedback.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = A27GAPV3L7;
 				INFOPLIST_FILE = ORAI_Feedback/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "flash.ORAI-Feedback";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -454,6 +691,7 @@
 		};
 		66371A3B1FC24704009CF4B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 973E6B01F01E6FAE5BBCC830 /* Pods-ORAI_FeedbackTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -471,6 +709,7 @@
 		};
 		66371A3C1FC24704009CF4B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB269A7927E61D66B632C1EE /* Pods-ORAI_FeedbackTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -488,6 +727,7 @@
 		};
 		66371A3E1FC24704009CF4B4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 615EC28C278877569F2311EE /* Pods-ORAI_FeedbackUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -504,6 +744,7 @@
 		};
 		66371A3F1FC24704009CF4B4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8022D1DC07A7661E6A4324AB /* Pods-ORAI_FeedbackUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
