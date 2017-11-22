@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="ZJf-5Z-Pbq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -256,7 +256,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYZ-Bf-nfz">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZYZ-Bf-nfz">
                                 <rect key="frame" x="0.0" y="256" width="375" height="411"/>
                                 <subviews>
                                     <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-happy-120.png" translatesAutoresizingMaskIntoConstraints="NO" id="Y77-RB-mIb">
@@ -311,7 +311,7 @@
                                     <constraint firstItem="KoI-2V-0n3" firstAttribute="centerY" secondItem="Y77-RB-mIb" secondAttribute="centerY" id="xE7-qr-St4"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xAs-aF-qES">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="xAs-aF-qES">
                                 <rect key="frame" x="162.5" y="308.5" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="8AZ-aW-3at"/>
@@ -319,6 +319,12 @@
                                 </constraints>
                                 <color key="color" red="0.10815858070000001" green="0.76877294429999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to record" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bte-Zs-pai">
+                                <rect key="frame" x="251" y="135" width="116" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -328,7 +334,10 @@
                             <constraint firstItem="F0T-yX-aPi" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="DVv-4G-rWh"/>
                             <constraint firstAttribute="bottom" secondItem="ZYZ-Bf-nfz" secondAttribute="bottom" id="Dp4-DL-uXE"/>
                             <constraint firstItem="0K5-RY-LYI" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="M9Y-lg-ZKq"/>
+                            <constraint firstItem="bte-Zs-pai" firstAttribute="leading" secondItem="F0T-yX-aPi" secondAttribute="trailing" constant="8" id="V7D-9J-5KK"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0K5-RY-LYI" secondAttribute="bottom" constant="12" id="WK5-5p-OU6"/>
+                            <constraint firstItem="bte-Zs-pai" firstAttribute="centerY" secondItem="ixR-IA-QEf" secondAttribute="centerY" id="Yyz-qg-bXm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bte-Zs-pai" secondAttribute="trailing" constant="8" id="eQe-m9-E6W"/>
                             <constraint firstItem="F0T-yX-aPi" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="69" id="l1u-g6-ch4"/>
                             <constraint firstItem="8y5-XE-s2t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="189" id="q6K-rq-xEo"/>
                             <constraint firstItem="ZYZ-Bf-nfz" firstAttribute="top" secondItem="8y5-XE-s2t" secondAttribute="bottom" constant="8" id="tAt-Xh-7WH"/>
@@ -351,6 +360,8 @@
                         <outlet property="playButton" destination="0K5-RY-LYI" id="Kf6-uo-i9D"/>
                         <outlet property="progress" destination="SAP-f0-bqE" id="8gG-rJ-5vK"/>
                         <outlet property="recordOutlet" destination="ixR-IA-QEf" id="y2d-lQ-zf6"/>
+                        <outlet property="statsView" destination="ZYZ-Bf-nfz" id="4sK-pd-ibF"/>
+                        <outlet property="tapOutlet" destination="bte-Zs-pai" id="DsJ-SY-R7s"/>
                         <outlet property="timerLabel" destination="8y5-XE-s2t" id="kth-MS-7FW"/>
                         <segue destination="bq1-4P-XBZ" kind="presentation" identifier="nameSong" id="9EF-qk-npm"/>
                     </connections>

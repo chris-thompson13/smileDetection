@@ -14,6 +14,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
     @IBOutlet weak var nuetral: UIImageView!
     
     @IBOutlet weak var activity: UIActivityIndicatorView!
+    @IBOutlet weak var tapOutlet: UILabel!
+    @IBOutlet weak var statsView: UIView!
     @IBOutlet weak var faceLabel: UILabel!
     @IBOutlet weak var progress: UIProgressView!
     @IBOutlet weak var percent: UILabel!
@@ -67,6 +69,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         
         progress.isHidden = false
         
+        tapOutlet.isHidden = true
+        
         let audioSession = AVAudioSession.sharedInstance()
         
         
@@ -95,12 +99,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
         happy.isHidden = true
         nuetral.isHidden = true
         self.faceLabel.isHidden = true
+        tapOutlet.isHidden = false
+
 
         
 
         
         if success {
-            recordOutlet.setTitle("Tap to Re-record", for: .normal)
             print("success")
         } else {
             recordOutlet.setTitle("Tap to Record", for: .normal)
@@ -123,37 +128,54 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
 
     @IBAction func recordAction(_ sender: Any) {
         if audioRecorder == nil {
-            totalSmiles = [""]
-            totalFaces = [""]
-            startRecording()
-            timerLabel.text = "Recording"
             
-            timer.invalidate() // just in case this button is tapped multiple times
-            counter = 0
-            // start the timer
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(timerAction), userInfo: nil, repeats: true)
-        
-
-            captureSession?.startRunning()
-            videoPreviewLayer?.isHidden = false
-
-
-            if let image = UIImage(named: "icons8-stop-120.png") {
+            let smileAlert = UIAlertController(title: "Smile Detector", message: "Please make sure you are in good lighting and your full face is in the view", preferredStyle: UIAlertControllerStyle.alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
+                UIAlertAction in
                 
-                self.recordOutlet.setImage(image, for: .normal)
-                UIView.animate(withDuration: 2.0,
-                               delay: 0,
-                               usingSpringWithDamping: 0.2,
-                               initialSpringVelocity: 6.0,
-                               options: .allowUserInteraction,
-                               animations: { [weak self] in
-                                self?.recordOutlet.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
-                                
-                    },
-                               completion: nil)
+                self.totalSmiles = [""]
+                self.totalFaces = [""]
+                self.startRecording()
+                self.timerLabel.text = "Recording"
+                
+                self.statsView.isHidden = false
+
+                
+                self.timer.invalidate() // just in case this button is tapped multiple times
+                self.counter = 0
+                // start the timer
+                self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerAction), userInfo: nil, repeats: true)
+                
+                
+                self.captureSession?.startRunning()
+                self.videoPreviewLayer?.isHidden = false
+                
+                
+                if let image = UIImage(named: "icons8-stop-120.png") {
+                    
+                    self.recordOutlet.setImage(image, for: .normal)
+                    UIView.animate(withDuration: 2.0,
+                                   delay: 0,
+                                   usingSpringWithDamping: 0.2,
+                                   initialSpringVelocity: 6.0,
+                                   options: .allowUserInteraction,
+                                   animations: { [weak self] in
+                                    self?.recordOutlet.transform = CGAffineTransform(scaleX: 0.4, y: 0.4)
+                                    
+                        },
+                                   completion: nil)
+                }
+                
+                
+                
             }
+            smileAlert.addAction(okAction)
+            present(smileAlert, animated: true, completion: nil)
+
             
         } else {
+            statsView.isHidden = true
             finishRecording(success: true)
             timer.invalidate()
             activity.isHidden = false
@@ -161,10 +183,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
             videoPreviewLayer?.isHidden = true
             if let image = UIImage(named: "icons8-microphone-250.png") {
                 self.recordOutlet.setImage(image, for: .normal)
-                self.playButton.isHidden = false
                 do {
                     let audioData = try Data(contentsOf: audioRecorder.url as URL)
                     let file = PFFile(name:"audio.m4a", data:audioData)
+                    self.view.isUserInteractionEnabled = false
+
                     file?.saveInBackground(block: { (success, error) in
                         if success == true && error == nil{
                             self.audioRecorder = nil
@@ -175,6 +198,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
                                     print(PFUser.current()!["currentAudio"])
                                     self.activity.stopAnimating()
                                     self.activity.isHidden = true
+                                    self.view.isUserInteractionEnabled = true
+
 
 
                                 } else {
@@ -183,6 +208,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVAudioPlayerDe
                                     self.present(alert, animated: true, completion: nil)
                                     self.activity.stopAnimating()
                                     self.activity.isHidden = true
+                                    self.view.isUserInteractionEnabled = true
+
                                 }
                             })
                             
