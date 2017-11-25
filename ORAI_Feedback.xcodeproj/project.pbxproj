@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		45698FDDC4BBB9652A737598 /* Pods_ORAI_Feedback.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D263884EF6BF269809468A9C /* Pods_ORAI_Feedback.framework */; };
+		6626CBA51FC9184D000AD4D2 /* paper_onboarding.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6626CBA61FC9184D000AD4D2 /* paper_onboarding.framework */; };
 		66371A131FC24703009CF4B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A121FC24703009CF4B4 /* AppDelegate.swift */; };
 		66371A151FC24703009CF4B4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66371A141FC24703009CF4B4 /* ViewController.swift */; };
 		66371A1D1FC24703009CF4B4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 66371A1B1FC24703009CF4B4 /* LaunchScreen.storyboard */; };
@@ -48,6 +49,7 @@
 		20E1F419CE58E759A0BEECC2 /* Pods-ORAI_Feedback.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_Feedback.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback.debug.xcconfig"; sourceTree = "<group>"; };
 		2FED4C8DF681C4935E812128 /* Pods_ORAI_FeedbackUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ORAI_FeedbackUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		615EC28C278877569F2311EE /* Pods-ORAI_FeedbackUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ORAI_FeedbackUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ORAI_FeedbackUITests/Pods-ORAI_FeedbackUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		6626CBA61FC9184D000AD4D2 /* paper_onboarding.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = paper_onboarding.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		66371A0F1FC24703009CF4B4 /* ORAI_Feedback.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ORAI_Feedback.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		66371A121FC24703009CF4B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		66371A141FC24703009CF4B4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -82,6 +84,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6626CBA51FC9184D000AD4D2 /* paper_onboarding.framework in Frameworks */,
 				66371A421FC24930009CF4B4 /* Bolts.framework in Frameworks */,
 				66371A401FC2492B009CF4B4 /* Parse.framework in Frameworks */,
 				45698FDDC4BBB9652A737598 /* Pods_ORAI_Feedback.framework in Frameworks */,
@@ -110,6 +113,7 @@
 		637A0272DC904DF32446A44E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6626CBA61FC9184D000AD4D2 /* paper_onboarding.framework */,
 				66371A431FC24930009CF4B4 /* Bolts.framework */,
 				66371A411FC2492B009CF4B4 /* Parse.framework */,
 				D263884EF6BF269809468A9C /* Pods_ORAI_Feedback.framework */,
@@ -465,11 +469,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-ORAI_Feedback/Pods-ORAI_Feedback-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
 				"${BUILT_PRODUCTS_DIR}/Parse/Parse.framework",
+				"${BUILT_PRODUCTS_DIR}/paper-onboarding/paper_onboarding.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Parse.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/paper_onboarding.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

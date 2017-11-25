@@ -24,7 +24,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     
     @IBOutlet weak var smileScore: UILabel!
     
-    
+    var newCounter = 0.0
+
     func write(sample: CMSampleBuffer, isVideo: Bool){
         if CMSampleBufferDataIsReady(sample) {
             if fileWriter.status == AVAssetWriterStatus.unknown {
@@ -63,10 +64,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     @IBOutlet weak var timerLabel: UILabel!
     @IBOutlet weak var cameraView: UIView!
     
+    var first = true
+    
     var output = AVCaptureVideoDataOutput()
 
 
-    
+    var minCounter = 0
+
     
     var panGesture       = UIPanGestureRecognizer()
 
@@ -250,13 +254,20 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     @objc func timerAction() {
         self.cameraView.translatesAutoresizingMaskIntoConstraints = true
         counterInt += 1
+        minCounter += 1
         let x = (Double(self.totalSmiles.count) / Double(self.totalFaces.count as Int)) * 100
+        
+        if counterInt > 59 {
+            counterInt = 0
+            
+        }
         if counterInt < 10 {
             let seconds = "0" + String(counterInt + 00)
             counter.text = String(counterInt/60 + 00) + ":" + seconds
 
+
         } else {
-        counter.text = String(counterInt/60 + 00) + ":" + String(counterInt + 00)
+        counter.text = String(minCounter/60 + 00) + ":" + String(counterInt + 00)
         }
     }
     
@@ -296,14 +307,39 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     func degreeToRadian(_ x: CGFloat) -> CGFloat {
         return .pi * x / 180.0
     }
+    
+    func animatePercentage(){
+        let percentage = (Double(self.totalSmiles.count as Int + (self.totalFaces.count/5)) / Double(self.totalFaces.count))
+        self.smileScore.text = "0"
+        if newCounter < percentage {
+            
+            newCounter += 1
+        
+            let x = (Double(self.totalSmiles.count as Int + (self.totalFaces.count/5)) / Double(self.totalFaces.count))
+            let y = (x * 100).rounded()
 
+            self.smileScore.text = String(format: "%.0f", y) + "%"
+            let when = DispatchTime.now() + 0.01
+            DispatchQueue.main.asyncAfter(deadline: when) {
+                self.animatePercentage()
+            }
+        
+        
+        
+        
+        }
+    }
 
 
     @IBAction func recordAction(_ sender: Any) {
         
+        
+        
 
         if audioRecorder == nil {
-            counter.text = String(0)
+            counter.text = "00:00"
+            
+            newCounter = 0.0
             
             reset()
             if let image = UIImage(named: "icons8-stop-120.png") {
@@ -334,6 +370,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     self.view.bringSubview(toFront: self.cameraView)
                 })
             }
+            
 
             fileWriter.add(videoInput)
 
@@ -381,9 +418,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         } else {
             finishRecording(success: true)
             timer.invalidate()
+            activity.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
             activity.isHidden = false
+            activity.color = UIColor.white
             activity.startAnimating()
             view.isUserInteractionEnabled = false
+
+            
             
             
             UIView.animate(withDuration: 1.5, animations: {
@@ -409,35 +450,37 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     let file = PFFile(name:"audio.m4a", data:audioData)
 
                     file?.saveInBackground(block: { (success, error) in
+                        let player = AVPlayer(url: self.urlString as URL)
+                        let playerLayer = AVPlayerLayer(player: player)
+                        let affineTransform = CGAffineTransform(rotationAngle: self.degreeToRadian(90))
+                        playerLayer.setAffineTransform(affineTransform)
+                        playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
+                        
+                        playerLayer.frame = self.cameraView.bounds
+                        self.cameraView.layer.addSublayer(playerLayer)
+                        player.play()
+                        self.audioPlayer = try! AVAudioPlayer(contentsOf: self.audioRecorder.url)
+                        do {
+                            try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
+                        } catch {
+                        }
+                        self.audioPlayer.prepareToPlay()
+                        self.audioPlayer.delegate = self
+                        self.audioPlayer.play()
+                        
+                        print(PFUser.current()!["currentAudio"])
+                        self.activity.stopAnimating()
+                        self.activity.isHidden = true
+                        self.view.isUserInteractionEnabled = true
+                        self.audioRecorder = nil
+
                         if success == true && error == nil{
                             print(file!)
                             PFUser.current()!["currentAudio"] = file
                             PFUser.current()!.saveInBackground(block: { (success, error) in
                                 if success == true && error == nil {
-                                    //self.performSegue(withIdentifier: "nameSong", sender: self)
-                                    let player = AVPlayer(url: self.urlString as URL)
-                                    let playerLayer = AVPlayerLayer(player: player)
-                                    let affineTransform = CGAffineTransform(rotationAngle: self.degreeToRadian(90))
-                                    playerLayer.setAffineTransform(affineTransform)
-                                    playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-
-                                    playerLayer.frame = self.cameraView.bounds
-                                    self.cameraView.layer.addSublayer(playerLayer)
-                                    player.play()
-                                    self.audioPlayer = try! AVAudioPlayer(contentsOf: self.audioRecorder.url)
-                                    do {
-                                        try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
-                                    } catch {
-                                    }
-                                    self.audioPlayer.prepareToPlay()
-                                    self.audioPlayer.delegate = self
-                                    self.audioPlayer.play()
-                                    print(PFUser.current()!["currentAudio"])
-                                    self.activity.stopAnimating()
-                                    self.activity.isHidden = true
-                                    self.view.isUserInteractionEnabled = true
-                                    self.audioRecorder = nil
-
+                                    self.performSegue(withIdentifier: "nameSong", sender: self)
+                                    
 
 
                                 } else {
@@ -568,7 +611,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         // Do any additional setup after loading the view, typically from a nib.
         
 
-        
+        first = true
         self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 800.0 )
         
         self.counterView.transform = CGAffineTransform( translationX: -400.0, y: 0.0 )

@@ -6,6 +6,7 @@ target 'ORAI_Feedback' do
   use_frameworks!
 
   pod 'Parse'
+  pod 'paper-onboarding'
 
   # Pods for ORAI_Feedback
 
