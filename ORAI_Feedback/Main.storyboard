@@ -165,6 +165,34 @@
             </objects>
             <point key="canvasLocation" x="217" y="1064"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="KQE-8b-2zD">
+            <objects>
+                <viewController id="zHb-Lw-iQZ" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CNp-gV-BIW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Orai can now track your facial expressions" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VIM-Cf-PCH">
+                                <rect key="frame" x="0.0" y="290.5" width="375" height="86"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="VIM-Cf-PCH" firstAttribute="centerY" secondItem="CNp-gV-BIW" secondAttribute="centerY" id="IOc-If-A3m"/>
+                            <constraint firstItem="VIM-Cf-PCH" firstAttribute="leading" secondItem="9rD-mJ-isA" secondAttribute="leading" id="SaS-TJ-paQ"/>
+                            <constraint firstItem="VIM-Cf-PCH" firstAttribute="trailing" secondItem="9rD-mJ-isA" secondAttribute="trailing" id="qW9-P8-jMI"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="9rD-mJ-isA"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KZC-Nq-5L6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1005.6" y="1017.84107946027"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="A0h-GF-uwk">
             <objects>
