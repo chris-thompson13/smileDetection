@@ -25,7 +25,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     @IBOutlet weak var smileScore: UILabel!
     
     var newCounter = 0.0
-
+    
     func write(sample: CMSampleBuffer, isVideo: Bool){
         if CMSampleBufferDataIsReady(sample) {
             if fileWriter.status == AVAssetWriterStatus.unknown {
@@ -67,13 +67,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     var first = true
     
     var output = AVCaptureVideoDataOutput()
-
-
+    
+    
     var minCounter = 0
-
+    
     
     var panGesture       = UIPanGestureRecognizer()
-
+    
     @IBOutlet weak var counter: UILabel!
     
     @IBOutlet weak var counterView: UIView!
@@ -88,10 +88,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     var videoOutputSettings = [String : AnyObject]()
     var player = AVPlayer()
     var playerLayer = AVPlayerLayer()
-
+    
     var videoInput: AVAssetWriterInput!
     var audioInput: AVAssetWriterInput!
-
+    
     
     
     var smiles = 0
@@ -124,16 +124,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     }
     
     func videUrl() -> NSURL? {
-
+        
         let fileManager = FileManager.default
         let urls = fileManager.urls(for: .documentDirectory, in: .userDomainMask)
         let documentDirectory = urls[0] as NSURL
         let video = documentDirectory.appendingPathComponent("speech.mp4")
         print(video)
-
+        
         return video as NSURL?
     }
-
+    
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         let documentsDirectory = paths[0]
@@ -193,13 +193,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     }
     
     func finishRecording(success: Bool) {
-
-
-
-
-
         
-
+        
+        
+        
+        
+        
+        
         
         if success {
             audioRecorder.stop()
@@ -220,7 +220,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         let file = PFFile(name:"video.mp4", data:data)
                         PFUser.current()!["currentVideo"] = file
                         PFUser.current()?.saveInBackground()
-
+                        
                         
                         
                     } catch {
@@ -249,7 +249,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     
     
     
-
+    
     
     @objc func timerAction() {
         self.cameraView.translatesAutoresizingMaskIntoConstraints = true
@@ -264,10 +264,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         if counterInt < 10 {
             let seconds = "0" + String(counterInt + 00)
             counter.text = String(counterInt/60 + 00) + ":" + seconds
-
-
+            
+            
         } else {
-        counter.text = String(minCounter/60 + 00) + ":" + String(counterInt + 00)
+            counter.text = String(minCounter/60 + 00) + ":" + String(counterInt + 00)
         }
     }
     
@@ -299,10 +299,10 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         return orientation
     }
     
-
     
-   
-
+    
+    
+    
     
     func degreeToRadian(_ x: CGFloat) -> CGFloat {
         return .pi * x / 180.0
@@ -314,28 +314,28 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         if newCounter < percentage {
             
             newCounter += 1
-        
+            
             let x = (Double(self.totalSmiles.count as Int + (self.totalFaces.count/5)) / Double(self.totalFaces.count))
             let y = (x * 100).rounded()
-
+            
             self.smileScore.text = String(format: "%.0f", y) + "%"
             let when = DispatchTime.now() + 0.01
             DispatchQueue.main.asyncAfter(deadline: when) {
                 self.animatePercentage()
             }
-        
-        
-        
-        
+            
+            
+            
+            
         }
     }
-
-
+    
+    
     @IBAction func recordAction(_ sender: Any) {
         
         
         
-
+        
         if audioRecorder == nil {
             counter.text = "00:00"
             
@@ -371,15 +371,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 })
             }
             
-
-            fileWriter.add(videoInput)
-
-            fileWriter.startWriting()
-
             
-
+            fileWriter.add(videoInput)
+            
+            fileWriter.startWriting()
+            
+            
+            
             print("test1")
-
+            
             let smileAlert = UIAlertController(title: "Smile Detector", message: "Please make sure you are in good lighting and your full face is in the view", preferredStyle: UIAlertControllerStyle.alert)
             
             let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
@@ -388,11 +388,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 self.totalSmiles = [""]
                 self.totalFaces = [""]
                 self.startRecording()
-
+                
                 self.timerLabel.text = "Recording"
                 
                 self.statsView.isHidden = false
-
+                
                 
                 self.timer.invalidate() // just in case this button is tapped multiple times
                 self.counterInt = 0
@@ -400,20 +400,20 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 self.timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(self.timerAction), userInfo: nil, repeats: true)
                 
                 
-
+                
                 self.videoPreviewLayer?.isHidden = false
                 self.cameraView.layer.addSublayer(self.videoPreviewLayer!)
                 self.cameraView.addSubview(self.recordOutlet)
                 self.recordOutlet.backgroundColor = UIColor.clear
-
-            
+                
+                
                 
                 
                 
             }
             smileAlert.addAction(okAction)
             present(smileAlert, animated: true, completion: nil)
-
+            
             
         } else {
             finishRecording(success: true)
@@ -423,7 +423,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             activity.color = UIColor.white
             activity.startAnimating()
             view.isUserInteractionEnabled = false
-
+            
             
             
             
@@ -433,13 +433,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 self.counterView.transform = CGAffineTransform( translationX: -500.0, y: 0.0 )
                 self.tapOutlet.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
                 self.smileView2.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
-
+                
                 
                 self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 0.0 )
                 
                 
             })
-
+            
             videoPreviewLayer?.isHidden = true
             if let image = UIImage(named: "icons8-microphone-250.png") {
                 self.recordOutlet.setImage(image, for: .normal)
@@ -448,7 +448,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 do {
                     let audioData = try Data(contentsOf: audioRecorder.url as URL)
                     let file = PFFile(name:"audio.m4a", data:audioData)
-
+                    
                     file?.saveInBackground(block: { (success, error) in
                         let player = AVPlayer(url: self.urlString as URL)
                         let playerLayer = AVPlayerLayer(player: player)
@@ -473,7 +473,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         self.activity.isHidden = true
                         self.view.isUserInteractionEnabled = true
                         self.audioRecorder = nil
-
+                        
                         if success == true && error == nil{
                             print(file!)
                             PFUser.current()!["currentAudio"] = file
@@ -481,8 +481,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                                 if success == true && error == nil {
                                     self.performSegue(withIdentifier: "nameSong", sender: self)
                                     
-
-
+                                    
+                                    
                                 } else {
                                     let alert = UIAlertController(title: "Error", message: error as? String, preferredStyle: UIAlertControllerStyle.alert)
                                     alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
@@ -491,19 +491,19 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                                     self.activity.isHidden = true
                                     self.view.isUserInteractionEnabled = true
                                     self.audioRecorder = nil
-
-
+                                    
+                                    
                                 }
                             })
                             
                         }
                     })
-
+                    
                     
                 } catch {
                     print("Unable to load data: \(error)")
                 }
-
+                
             }
             UIView.animate(withDuration: 2.0,
                            delay: 0,
@@ -521,16 +521,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     
     
     @IBAction func playAction(_ sender: Any) {
-      
+        
         if self.audioRecorder != nil {
-
-        
-        self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
-        self.audioPlayer.prepareToPlay()
-        self.audioPlayer.delegate = self
-        self.audioPlayer.play()
-        
-    }
+            
+            
+            self.audioPlayer = try! AVAudioPlayer(contentsOf: audioRecorder.url)
+            self.audioPlayer.prepareToPlay()
+            self.audioPlayer.delegate = self
+            self.audioPlayer.play()
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int)  -> Int {
@@ -541,7 +541,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell:UITableViewCell=UITableViewCell(style: UITableViewCellStyle.subtitle, reuseIdentifier: "mycell")
-
+        
         return cell
     }
     
@@ -558,7 +558,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             return 6
         }
     }
-
+    
     
     
     @objc func draggedView(_ sender:UIPanGestureRecognizer){
@@ -568,14 +568,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         sender.setTranslation(CGPoint.zero, in: self.view)
     }
     
-
+    
     func setupCaptureMode(_ mode: Int) {
         // Video Mode
         
     }
     
     func reset(){
-
+        
         totalFaces = [""]
         totalSmiles = [""]
         soundSetting = [
@@ -610,16 +610,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
-
+        
         first = true
         self.statsView.transform = CGAffineTransform( translationX: 0.0, y: 800.0 )
         
         self.counterView.transform = CGAffineTransform( translationX: -400.0, y: 0.0 )
         
         self.smileView2.transform = CGAffineTransform( translationX: 800.0, y: 0.0 )
-
         
-            
+        
+        
         cameraView.layer.borderWidth = 3
         
         progress.transform = progress.transform.scaledBy(x: 1, y: 10)
@@ -630,20 +630,20 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             AVVideoHeightKey : self.view.frame.width as AnyObject,
             AVVideoWidthKey : self.view.frame.height as AnyObject
         ]
-
+        
         
         if PFUser.current() == nil {
-        
-        let user = PFUser()
-        user.username = randomString(length: 7)
-        user.password = "password"
-        
-        user.signUpInBackground()
-        
+            
+            let user = PFUser()
+            user.username = randomString(length: 7)
+            user.password = "password"
+            
+            user.signUpInBackground()
+            
         }
         cameraView.layer.borderColor = UIColor.white.cgColor
         let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
-
+        
         
         do {
             let input = try AVCaptureDeviceInput(device: captureDevice!)
@@ -661,7 +661,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             
             if (captureSession?.canAddOutput(output))! {
                 captureSession?.addOutput(output)
-
+                
             }
             
             captureSession?.commitConfiguration()
@@ -669,16 +669,16 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             let queue = DispatchQueue(label: "output.queue")
             output.setSampleBufferDelegate(self as? AVCaptureVideoDataOutputSampleBufferDelegate, queue: queue)
             
-
-
             
             
-
+            
+            
+            
         } catch {
             print(error)
         }
         
-
+        
         
         cameraView.layer.cornerRadius = cameraView.frame.height / 2.0
         cameraView.layer.masksToBounds = true
@@ -687,7 +687,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         cameraView.isUserInteractionEnabled = true
         cameraView.addGestureRecognizer(panGesture)
         
-
+        
         
         
         recordingSession = AVAudioSession.sharedInstance()
@@ -726,13 +726,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         
     }
     
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
+    
 }
 
 //file path
@@ -743,37 +743,37 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
 
 
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
-
+    
     func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         
         
-
+        
         if let _ = captureOutput as? AVCaptureVideoDataOutput {
             
             if CMSampleBufferDataIsReady(sampleBuffer) {
-
+                
                 if fileWriter.status.rawValue != 0 {
                     let startTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
-
-
-                        fileWriter.startSession(atSourceTime: startTime)
-                        videoInput.append(sampleBuffer)
-
-
                     
-                    }
+                    
+                    fileWriter.startSession(atSourceTime: startTime)
+                    videoInput.append(sampleBuffer)
+                    
+                    
+                    
                 }
             }
+        }
         
-
-    
-
-
-
-
-
+        
+        
+        
+        
+        
+        
+        
         let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-
+        
         let attachments = CMCopyDictionaryOfAttachments(kCFAllocatorDefault, sampleBuffer, kCMAttachmentMode_ShouldPropagate)
         let ciImage = CIImage(cvImageBuffer: pixelBuffer!, options: attachments as! [String : Any]?)
         let options: [String : Any] = [CIDetectorImageOrientation: exifOrientation(orientation: UIDevice.current.orientation),
@@ -784,9 +784,9 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         DispatchQueue.main.async {
             
             if self.videoPreviewLayer?.isHidden != true {
-
+                
                 self.happy.isHidden = false
-
+                
                 self.faceLabel.isHidden = false
                 self.nuetral.isHidden = false
                 let x = (Double(self.totalSmiles.count as Int + (self.totalFaces.count/5)) / Double(self.totalFaces.count))
@@ -795,23 +795,23 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 let y = (x * 100).rounded()
                 
                 
-
+                
                 
                 self.smileScore.text = String(format: "%.0f", y) + "%"
-
+                
                 self.progress.progress = Float(x)
                 if x > 60 {
                     self.progress.progressTintColor = UIColor.green
                 }
-
                 
-
+                
+                
             }
         }
         let formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer)
         let cleanAperture = CMVideoFormatDescriptionGetCleanAperture(formatDescription!, false)
         guard let features = allFeatures else {
-
+            
             return
             
         }
@@ -821,29 +821,29 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
                 DispatchQueue.main.async {
                     if self.videoPreviewLayer?.isHidden != true {
                         self.faceLabel.isHidden = true
-
-                if faceFeature.hasSmile == true && faceFeature.hasMouthPosition == true{
-
-                        self.happy.isHidden = false
-                    self.smiles += 1
-                    self.totalSmiles.append("smile")
-                    self.totalFaces.append("noSmile")
-
-
-                } else {
-                        self.totalFaces.append("noSmile")
-
                         
+                        if faceFeature.hasSmile == true && faceFeature.hasMouthPosition == true{
+                            
+                            self.happy.isHidden = false
+                            self.smiles += 1
+                            self.totalSmiles.append("smile")
+                            self.totalFaces.append("noSmile")
+                            
+                            
+                        } else {
+                            self.totalFaces.append("noSmile")
+                            
+                            
                         }
-                    
-                    
-                }
+                        
+                        
+                    }
                 }
             }
             
             
         }
-
+        
     }
-
+    
 }
