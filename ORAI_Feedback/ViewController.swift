@@ -684,8 +684,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         
         
         
-        cameraView.layer.borderWidth = 3
-        
         progress.transform = progress.transform.scaledBy(x: 1, y: 10)
         
         
@@ -698,7 +696,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             user.signUpInBackground()
             
         }
-        cameraView.layer.borderColor = UIColor.white.cgColor
         let captureDevice = AVCaptureDevice.default(.builtInWideAngleCamera, for: AVMediaType.video, position: AVCaptureDevice.Position.front)
         
         
