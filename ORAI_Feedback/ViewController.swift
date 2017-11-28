@@ -136,7 +136,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                                                 settings: soundSetting)
             
             
-            print(audioRecorder.url)
             
             audioRecorder.delegate = self
             audioRecorder.prepareToRecord()
