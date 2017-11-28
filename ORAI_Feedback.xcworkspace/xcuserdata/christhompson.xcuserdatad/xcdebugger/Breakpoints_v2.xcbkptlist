@@ -6,63 +6,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "ORAI_Feedback/ViewController.swift"
-            timestampString = "533594951.423087"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "735"
-            endingLineNumber = "735"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Bool) -&gt; () in ORAI_Feedback.ViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "ORAI_Feedback"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christhompson/Desktop/ORAI_Feedback/ORAI_Feedback/ViewController.swift"
-                  timestampString = "532901108.205269"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "170"
-                  endingLineNumber = "170"
-                  offsetFromSymbolStart = "32">
-               </Location>
-               <Location
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 () -&gt; () in closure #1 (Swift.Bool) -&gt; () in ORAI_Feedback.ViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "ORAI_Feedback"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/christhompson/Desktop/ORAI_Feedback/ORAI_Feedback/ViewController.swift"
-                  timestampString = "532901108.217312"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "169"
-                  endingLineNumber = "169"
-                  offsetFromSymbolStart = "24">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ORAI_Feedback/ViewController.swift"
-            timestampString = "533594951.423229"
+            timestampString = "533595881.696439"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "692"
-            endingLineNumber = "692"
+            startingLineNumber = "655"
+            endingLineNumber = "655"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
