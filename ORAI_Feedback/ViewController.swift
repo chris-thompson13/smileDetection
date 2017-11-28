@@ -214,13 +214,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     
                     
                     do {
-                        
+                        if PFUser.current() != nil {
                         
                         let data = try Data(contentsOf: self.urlString as URL)
                         let file = PFFile(name:"video.mp4", data:data)
                         PFUser.current()!["currentVideo"] = file
                         PFUser.current()?.saveInBackground()
                         
+                        }
                         
                         
                     } catch {
@@ -449,16 +450,30 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     let audioData = try Data(contentsOf: audioRecorder.url as URL)
                     let file = PFFile(name:"audio.m4a", data:audioData)
                     
-                    file?.saveInBackground(block: { (success, error) in
+                    file?.saveInBackground()
+                    
+                    if PFUser.current() != nil {
+                    
+                    print(file!)
+                    PFUser.current()!["currentAudio"] = file
+                    PFUser.current()!.saveInBackground()
+                        
+                    }
+                    //self.performSegue(withIdentifier: "nameSong", sender: self)
+                    let when = DispatchTime.now() + 3
+                    DispatchQueue.main.asyncAfter(deadline: when) {
+                        
                         let player = AVPlayer(url: self.urlString as URL)
                         let playerLayer = AVPlayerLayer(player: player)
                         let affineTransform = CGAffineTransform(rotationAngle: self.degreeToRadian(90))
                         playerLayer.setAffineTransform(affineTransform)
                         playerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
-                        
+                        print("play")
                         playerLayer.frame = self.cameraView.bounds
                         self.cameraView.layer.addSublayer(playerLayer)
                         player.play()
+                        
+                        
                         self.audioPlayer = try! AVAudioPlayer(contentsOf: self.audioRecorder.url)
                         do {
                             try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
@@ -468,36 +483,21 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         self.audioPlayer.delegate = self
                         self.audioPlayer.play()
                         
-                        print(PFUser.current()!["currentAudio"])
                         self.activity.stopAnimating()
                         self.activity.isHidden = true
                         self.view.isUserInteractionEnabled = true
                         self.audioRecorder = nil
-                        
-                        if success == true && error == nil{
-                            print(file!)
-                            PFUser.current()!["currentAudio"] = file
-                            PFUser.current()!.saveInBackground(block: { (success, error) in
-                                if success == true && error == nil {
-                                    self.performSegue(withIdentifier: "nameSong", sender: self)
-                                    
-                                    
-                                    
-                                } else {
-                                    let alert = UIAlertController(title: "Error", message: error as? String, preferredStyle: UIAlertControllerStyle.alert)
-                                    alert.addAction(UIAlertAction(title: "ok", style: UIAlertActionStyle.default, handler: nil))
-                                    self.present(alert, animated: true, completion: nil)
-                                    self.activity.stopAnimating()
-                                    self.activity.isHidden = true
-                                    self.view.isUserInteractionEnabled = true
-                                    self.audioRecorder = nil
-                                    
-                                    
-                                }
-                            })
-                            
-                        }
-                    })
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
                     
                     
                 } catch {
@@ -569,10 +569,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     }
     
     
-    func setupCaptureMode(_ mode: Int) {
-        // Video Mode
-        
-    }
+    
     
     func reset(){
         
@@ -721,7 +718,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         } catch {
             // failed to record!
         }
-        // Do any additional setup after loading the view, typically from a nib.
         
         
     }
@@ -729,16 +725,13 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
 }
 
-//file path
 
 
-//
 
 
 
