@@ -10,7 +10,7 @@ import UIKit
 import Parse
 
 class saveSpeech: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var activity: UIActivityIndicatorView!
     var speech = PFObject(className: "speech")
     @IBOutlet weak var speechName: UITextField!
@@ -43,7 +43,7 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
                     // The object has been saved.
                     self.dismiss(animated: true, completion: nil)
                     self.view.isUserInteractionEnabled = true
-
+                    
                     
                 } else {
                     // There was a problem, check error.description
@@ -53,7 +53,7 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
                     errorAlert.addAction(UIAlertAction(title: "tryAgain", style: UIAlertActionStyle.default, handler: nil))
                     self.present(errorAlert, animated: true, completion: nil)
                     self.view.isUserInteractionEnabled = true
-
+                    
                 }
             }
         }
@@ -83,30 +83,30 @@ class saveSpeech: UIViewController, UITextFieldDelegate {
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: .exit)
         NotificationCenter.default.addObserver(self, selector: #selector(saveSpeech.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(saveSpeech.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-    
-
-            speechName.delegate = self
-
+        
+        
+        speechName.delegate = self
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destinationViewController.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 private extension Selector {
