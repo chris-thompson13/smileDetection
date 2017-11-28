@@ -457,7 +457,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         
                     }
                     
-                    let audio = DispatchTime.now() + 2.7
+                    let audio = DispatchTime.now() + 3
                     DispatchQueue.main.asyncAfter(deadline: audio) {
                         self.audioPlayer = try! AVAudioPlayer(contentsOf: self.audioRecorder.url)
                         do {
