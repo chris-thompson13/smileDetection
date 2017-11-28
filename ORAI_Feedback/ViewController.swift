@@ -9,6 +9,8 @@
 import UIKit
 import Parse
 import AVFoundation
+import Foundation
+import AVKit
 import Dispatch
 import AssetsLibrary
 
@@ -25,30 +27,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     @IBOutlet weak var smileScore: UILabel!
     
     var newCounter = 0.0
-    
-    func write(sample: CMSampleBuffer, isVideo: Bool){
-        if CMSampleBufferDataIsReady(sample) {
-            if fileWriter.status == AVAssetWriterStatus.unknown {
-                print("Start writing, isVideo = \(isVideo), status = \(fileWriter.status.rawValue)")
-                let startTime = CMSampleBufferGetPresentationTimeStamp(sample)
-                //fileWriter.startWriting()
-                //fileWriter.startSession(atSourceTime: startTime)
-            }
-            if fileWriter.status == AVAssetWriterStatus.failed {
-                print("Error occured, isVideo = \(isVideo), status = \(fileWriter.status.rawValue), \(fileWriter.error!.localizedDescription)")
-                return
-            }
-            if isVideo {
-                if videoInput.isReadyForMoreMediaData {
-                    videoInput.append(sample)
-                }
-            }else{
-                if audioInput.isReadyForMoreMediaData {
-                    audioInput.append(sample)
-                }
-            }
-        }
-    }
     
     
     @IBOutlet weak var showStats: UIView!
@@ -81,6 +59,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     let faceDetector = CIDetector(ofType: CIDetectorTypeFace, context: nil, options: [CIDetectorAccuracy : CIDetectorAccuracyLow])
     
     @IBOutlet weak var recordings: UITableView!
+    
     var input = AVAssetWriter.self
     var stillOutput = AVCaptureStillImageOutput()
     var urlString: NSURL!
@@ -193,13 +172,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
     }
     
     func finishRecording(success: Bool) {
-        
-        
-        
-        
-        
-        
-        
+
         
         if success {
             audioRecorder.stop()
@@ -214,6 +187,9 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     
                     
                     do {
+                        
+
+
                         if PFUser.current() != nil {
                         
                         let data = try Data(contentsOf: self.urlString as URL)
@@ -231,12 +207,14 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     
                     
                 })
+                
             }
             progress.isHidden = true
             happy.isHidden = true
             nuetral.isHidden = true
             self.faceLabel.isHidden = true
             tapOutlet.text = "tap to re-record"
+
             
             
             
@@ -374,6 +352,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             
             
             fileWriter.add(videoInput)
+            fileWriter.add(audioInput)
             
             fileWriter.startWriting()
             
@@ -417,6 +396,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             
             
         } else {
+
             finishRecording(success: true)
             timer.invalidate()
             activity.frame = CGRect(origin: .zero, size: CGSize(width: 100, height: 100))
@@ -424,6 +404,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             activity.color = UIColor.white
             activity.startAnimating()
             view.isUserInteractionEnabled = false
+            
             
             
             
@@ -447,6 +428,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                 self.recordOutlet.backgroundColor = UIColor.white
                 
                 do {
+
+
                     let audioData = try Data(contentsOf: audioRecorder.url as URL)
                     let file = PFFile(name:"audio.m4a", data:audioData)
                     
@@ -456,13 +439,12 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                     
                     print(file!)
                     PFUser.current()!["currentAudio"] = file
-                    PFUser.current()!.saveInBackground()
+                        PFUser.current()!.saveInBackground()
                         
                     }
                     //self.performSegue(withIdentifier: "nameSong", sender: self)
-                    let when = DispatchTime.now() + 3
+                    let when = DispatchTime.now() + 2
                     DispatchQueue.main.asyncAfter(deadline: when) {
-                        
                         let player = AVPlayer(url: self.urlString as URL)
                         let playerLayer = AVPlayerLayer(player: player)
                         let affineTransform = CGAffineTransform(rotationAngle: self.degreeToRadian(90))
@@ -472,8 +454,11 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         playerLayer.frame = self.cameraView.bounds
                         self.cameraView.layer.addSublayer(playerLayer)
                         player.play()
-                        
-                        
+                    
+                    }
+                    
+                    let audio = DispatchTime.now() + 2.7
+                    DispatchQueue.main.asyncAfter(deadline: audio) {
                         self.audioPlayer = try! AVAudioPlayer(contentsOf: self.audioRecorder.url)
                         do {
                             try AVAudioSession.sharedInstance().overrideOutputAudioPort(AVAudioSessionPortOverride.speaker)
@@ -487,12 +472,8 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
                         self.activity.isHidden = true
                         self.view.isUserInteractionEnabled = true
                         self.audioRecorder = nil
+                    
                     }
-                    
-                    
-                    
-                    
-                    
                     
                     
                     
@@ -576,10 +557,15 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         totalFaces = [""]
         totalSmiles = [""]
         soundSetting = [
-            AVFormatIDKey : kAudioFormatMPEG4AAC as AnyObject,
+            AVFormatIDKey : Int(kAudioFormatMPEG4AAC) as AnyObject,
             AVNumberOfChannelsKey : 1 as AnyObject,
             AVSampleRateKey : 44100 as AnyObject,
             AVEncoderBitRateKey : 128000 as AnyObject
+        ]
+        videoOutputSettings = [
+            AVVideoCodecKey : AVVideoCodecH264 as AnyObject,
+            AVVideoHeightKey : self.view.frame.width as AnyObject,
+            AVVideoWidthKey : self.view.frame.height as AnyObject
         ]
         urlString = self.videUrl()
         
@@ -597,10 +583,92 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
             
         }
         videoInput = try? AVAssetWriterInput(mediaType: AVMediaType.video, outputSettings: videoOutputSettings)
+        videoInput.expectsMediaDataInRealTime = true
+
         audioInput = try? AVAssetWriterInput(mediaType: AVMediaType.audio, outputSettings: soundSetting)
+        audioInput.expectsMediaDataInRealTime = true
+
         
         print(urlString as URL)
         fileWriter = try? AVAssetWriter(url: urlString as URL, fileType: AVFileType.mov)
+    }
+    
+    func mergeFilesWithUrl(videoUrl:URL, audioUrl:URL)
+    {
+        let mixComposition : AVMutableComposition = AVMutableComposition()
+        var mutableCompositionVideoTrack : [AVMutableCompositionTrack] = []
+        var mutableCompositionAudioTrack : [AVMutableCompositionTrack] = []
+        let totalVideoCompositionInstruction : AVMutableVideoCompositionInstruction = AVMutableVideoCompositionInstruction()
+        
+        
+        //start merge
+        
+        let aVideoAsset : AVAsset = AVAsset(url: videoUrl)
+        let aAudioAsset : AVAsset = AVAsset(url: audioUrl)
+        
+        mutableCompositionVideoTrack.append(mixComposition.addMutableTrack(withMediaType: AVMediaType.video, preferredTrackID: kCMPersistentTrackID_Invalid)!)
+        mutableCompositionAudioTrack.append( mixComposition.addMutableTrack(withMediaType: AVMediaType.audio, preferredTrackID: kCMPersistentTrackID_Invalid)!)
+        
+        let aVideoAssetTrack : AVAssetTrack = aVideoAsset.tracks(withMediaType: AVMediaType.video)[0]
+        let aAudioAssetTrack : AVAssetTrack = aAudioAsset.tracks(withMediaType: AVMediaType.audio)[0]
+        
+        
+        
+        do{
+            try mutableCompositionVideoTrack[0].insertTimeRange(CMTimeRangeMake(kCMTimeZero, aVideoAssetTrack.timeRange.duration), of: aVideoAssetTrack, at: kCMTimeZero)
+            
+            //In my case my audio file is longer then video file so i took videoAsset duration
+            //instead of audioAsset duration
+            
+            try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(kCMTimeZero, aVideoAssetTrack.timeRange.duration), of: aAudioAssetTrack, at: kCMTimeZero)
+            
+            //Use this instead above line if your audiofile and video file's playing durations are same
+            
+            //            try mutableCompositionAudioTrack[0].insertTimeRange(CMTimeRangeMake(kCMTimeZero, aVideoAssetTrack.timeRange.duration), ofTrack: aAudioAssetTrack, atTime: kCMTimeZero)
+            
+        }catch{
+            
+        }
+        
+        totalVideoCompositionInstruction.timeRange = CMTimeRangeMake(kCMTimeZero,aVideoAssetTrack.timeRange.duration )
+        
+        let mutableVideoComposition : AVMutableVideoComposition = AVMutableVideoComposition()
+        mutableVideoComposition.frameDuration = CMTimeMake(1, 30)
+        
+        mutableVideoComposition.renderSize = CGSize(width: 1280, height: 720)
+        //        playerItem = AVPlayerItem(asset: mixComposition)
+        //        player = AVPlayer(playerItem: playerItem!)
+        //
+        //
+        //        AVPlayerVC.player = player
+        
+        //find your video on this URl
+        let savePathUrl : URL = URL(fileURLWithPath: NSHomeDirectory() + "/Documents/newVideo.mp4")
+        
+        let assetExport: AVAssetExportSession = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality)!
+        assetExport.outputFileType = AVFileType.mp4
+        assetExport.outputURL = savePathUrl
+        assetExport.shouldOptimizeForNetworkUse = true
+        
+        assetExport.exportAsynchronously { () -> Void in
+            switch assetExport.status {
+                
+            case AVAssetExportSessionStatus.completed:
+                
+                //Uncomment this if u want to store your video in asset
+                
+                //let assetsLib = ALAssetsLibrary()
+                //assetsLib.writeVideoAtPathToSavedPhotosAlbum(savePathUrl, completionBlock: nil)
+                
+                print("success")
+            case  AVAssetExportSessionStatus.failed:
+                print("failed \(String(describing: assetExport.error))")
+            case AVAssetExportSessionStatus.cancelled:
+                print("cancelled \(String(describing: assetExport.error))")
+            default:
+                print("complete")
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -620,13 +688,6 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
         cameraView.layer.borderWidth = 3
         
         progress.transform = progress.transform.scaledBy(x: 1, y: 10)
-        
-        
-        videoOutputSettings = [
-            AVVideoCodecKey : AVVideoCodecH264 as AnyObject,
-            AVVideoHeightKey : self.view.frame.width as AnyObject,
-            AVVideoWidthKey : self.view.frame.height as AnyObject
-        ]
         
         
         if PFUser.current() == nil {
@@ -735,6 +796,7 @@ class ViewController: UIViewController, AVAudioRecorderDelegate, AVCaptureFileOu
 
 
 
+
 extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
     
     func captureOutput(_ captureOutput: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
@@ -742,24 +804,30 @@ extension ViewController: AVCaptureVideoDataOutputSampleBufferDelegate {
         
         
         if let _ = captureOutput as? AVCaptureVideoDataOutput {
+        
+            if CMSampleBufferDataIsReady(sampleBuffer) {
+                
+                if fileWriter.status.rawValue != 0 {
+                    let startTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
+                    
+                    fileWriter.startSession(atSourceTime: startTime)
+                        videoInput.append(sampleBuffer)
+                }
+            }
+        }
+        
+        if let _ = captureOutput as? AVCaptureAudioDataOutput {
             
             if CMSampleBufferDataIsReady(sampleBuffer) {
                 
                 if fileWriter.status.rawValue != 0 {
                     let startTime = CMSampleBufferGetPresentationTimeStamp(sampleBuffer)
                     
-                    
                     fileWriter.startSession(atSourceTime: startTime)
-                    videoInput.append(sampleBuffer)
-                    
-                    
-                    
+                    audioInput.append(sampleBuffer)
                 }
             }
         }
-        
-        
-        
         
         
         
